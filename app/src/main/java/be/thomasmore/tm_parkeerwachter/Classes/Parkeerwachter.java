@@ -9,6 +9,8 @@ public class Parkeerwachter {
     private String naam;
 
     // Constructoren
+    public Parkeerwachter() {}
+
     public Parkeerwachter(String id, String username, String pincode, String voornaam, String naam) {
         this.id = id;
         this.username = username;
@@ -58,5 +60,11 @@ public class Parkeerwachter {
 
     public void setNaam(String naam) {
         this.naam = naam;
+    }
+
+    // Overrides
+    @Override
+    public String toString() {
+        return this.username;
     }
 }
