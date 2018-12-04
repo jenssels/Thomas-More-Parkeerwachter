@@ -1,34 +1,37 @@
-*.iml
-.gradle
-/local.properties
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
+# Built application files
+/*/build/
 
-# Sensitive or high-churn files:
-.idea/dataSources.ids
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
+# Crashlytics configuations
+com_crashlytics_export_strings.xml
 
-# Gradle:
-.idea/gradle.xml
-.idea/libraries
+# Local configuration file (sdk path, etc)
+local.properties
 
-# Mongo Explorer plugin:
-.idea/mongoSettings.xml
+# Gradle generated files
+.gradle/
 
-# User-specific stuff:
+# Signing files
+.signing/
+
+# User-specific configurations
+.idea/libraries/
 .idea/workspace.xml
 .idea/tasks.xml
-.idea/dictionaries
-.idea/vcs.xml
-.idea/jsLibraryMappings.xml
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+.idea/misc.xml
 .idea/modules.xml
+.idea/scopes/scope_settings.xml
+.idea/vcs.xml
+*.iml
 
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
