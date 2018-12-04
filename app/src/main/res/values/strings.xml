@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TM_Parkeerwachter</string>
+    <string name="welkom">Welkom bij de TM Parkeerwachter app. Log in om te starten.</string>
+
+    <string name="overtreding_nummerplaatLabel">Nummerplaat:</string>
+    <string name="overtreding_zoekButton">Zoeken</string>
 </resources>

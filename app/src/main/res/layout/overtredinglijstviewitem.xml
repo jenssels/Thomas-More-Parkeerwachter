@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp" >
+    <ImageView
+        android:id="@+id/nummerplaatUrl"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="3dp"
+        android:paddingTop="2dp"
+        android:textSize="35sp"
+        android:textColor="#00aadd" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/nummerplaatUrl"
+        android:layout_alignTop="@+id/nummerplaatUrl"
+        android:paddingLeft="10dp">
+        <TextView
+            android:id="@+id/nummerplaat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textColor="#555555" />
+        <TextView
+            android:id="@+id/datum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#999999" />
+    </LinearLayout>
+</RelativeLayout>

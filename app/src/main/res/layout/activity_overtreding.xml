@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".OvertredingActivity">
 
     <LinearLayout
-        android:id="@+id/home"
+        android:id="@+id/overtredingen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -17,26 +17,29 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/overtreding_nummerplaatLabel"
+            android:labelFor="@id/zoekNummerplaat"
+            />
+        <EditText
+            android:id="@+id/zoekNummerplaat"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            />
+        <Button
+            android:id="@+id/zoekOvertredingen"
+            android:text="@string/overtreding_zoekButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/welkom"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:onClick="zoeken"/>
 
         <ListView
-            android:id="@+id/parkeerwachterLijst"
+            android:id="@+id/overtredingenLijst"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:dividerHeight="1dp" />
-
-        <Button
-            android:id="@+id/openOvertreding"
-            android:text="Open test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="openOvertreding"/>
 
     </LinearLayout>
 
