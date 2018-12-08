@@ -1,14 +1,18 @@
 package be.thomasmore.tm_parkeerwachter;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.koushikdutta.ion.Ion;
@@ -76,9 +80,17 @@ public class MainActivity extends AppCompatActivity {
         httpReader.execute("http://jenssels.ddns.net:8080/parkeerwachters");
     }
 
-    public void openOvertreding(View view) {
-
-        final Intent intent = new Intent(this, OvertredingActivity.class);
+    public void openActivity(View view) {
+        Activity activity = new Activity();
+        switch (view.getTag().toString()){
+            case "nieuweOvertreding":
+                activity = new NieuweOvertredingActivity();
+                break;
+            case "overtreding":
+                activity = new OvertredingActivity();
+                break;
+        }
+        final Intent intent = new Intent(this, activity.getClass());
         startActivity(intent);
     }
 
@@ -86,12 +98,5 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
-    }
-
-    public void testUpload(View v) {
-        Ion.with(this)
-                .load("POST", "http://84.196.37.24:8080/uploadImage")
-                .setMultipartFile("testImage", new File("/storage/emulated/0/pictures/brazil_bus_wpo.jpg"))
-                .asJsonObject();
     }
 }

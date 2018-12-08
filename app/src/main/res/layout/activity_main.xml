@@ -36,7 +36,16 @@
             android:text="Open test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="openOvertreding"/>
+            android:onClick="openActivity"
+            android:tag="overtreding"/>
+
+        <Button
+            android:id="@+id/openNieuweOvertreding"
+            android:text="Registreer een nieuwe overtreding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="openActivity"
+            android:tag="nieuweOvertreding"/>
 
     </LinearLayout>
 
