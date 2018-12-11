@@ -1,18 +1,23 @@
 package be.thomasmore.tm_parkeerwachter;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
+import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.koushikdutta.ion.Ion;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,33 +34,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        genereerParkeerwachters();
+        checkPermissions();
+        // genereerParkeerwachters();
         // leesParkeerwachters();
-        toonParkeerwachters();
+        // toonParkeerwachters();
     }
 
     // Methoden
-    private void genereerParkeerwachters() {
-        this.parkeerwachters = new ArrayList<Parkeerwachter>();
-        this.parkeerwachters.add(new Parkeerwachter("0", "Wachter1", "1111", "Eerste", "Wachter1"));
-        this.parkeerwachters.add(new Parkeerwachter("1", "Wachter2", "2222", "Tweede", "Wachter2"));
-        this.parkeerwachters.add(new Parkeerwachter("2", "Wachter3", "3333", "Derde", "Wachter3"));
-        this.parkeerwachters.add(new Parkeerwachter("3", "Wachter4", "4444", "Vierde", "Wachter4"));
-    }
-
-    private void toonParkeerwachters() {
-        ListView parkeerwachterLijst = (ListView) findViewById(R.id.parkeerwachterLijst);
-
-        ArrayAdapter<Parkeerwachter> parkeerwachterAdapter = new ArrayAdapter<Parkeerwachter>(this, android.R.layout.simple_list_item_1, parkeerwachters);
-        parkeerwachterLijst.setAdapter(parkeerwachterAdapter);
-        parkeerwachterLijst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                toonDialoog();
-            }
-        });
-
-    }
+//    private void toonParkeerwachters() {
+//        ListView parkeerwachterLijst = (ListView) findViewById(R.id.parkeerwachterLijst);
+//
+//        ArrayAdapter<Parkeerwachter> parkeerwachterAdapter = new ArrayAdapter<Parkeerwachter>(this, android.R.layout.simple_list_item_1, parkeerwachters);
+//        parkeerwachterLijst.setAdapter(parkeerwachterAdapter);
+//        parkeerwachterLijst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                toonDialoog();
+//            }
+//        });
+//
+//    }
 
     private void toonDialoog() {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
@@ -69,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void leesParkeerwachters()
-    {
+    private void leesParkeerwachters() {
         this.parkeerwachters = new ArrayList<Parkeerwachter>();
         HttpReader httpReader = new HttpReader();
         httpReader.setOnResultReadyListener(new HttpReader.OnResultReadyListener() {
@@ -83,10 +80,26 @@ public class MainActivity extends AppCompatActivity {
         httpReader.execute("http://jenssels.ddns.net:8080/parkeerwachters");
     }
 
-    public void openOvertreding(View view) {
-
-        final Intent intent = new Intent(this, OvertredingActivity.class);
+    public void openActivity(View view) {
+        Activity activity = new Activity();
+        switch (view.getTag().toString()){
+            case "nieuweOvertreding":
+                activity = new NieuweOvertredingActivity();
+                break;
+            case "overtreding":
+                activity = new OvertredingActivity();
+                break;
+        }
+        final Intent intent = new Intent(this, activity.getClass());
         startActivity(intent);
     }
 
+    private void checkPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+    }
 }

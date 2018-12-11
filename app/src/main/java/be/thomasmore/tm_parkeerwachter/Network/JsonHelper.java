@@ -107,5 +107,37 @@ public class JsonHelper {
         return gevolgTypes;
     }
 
+    public Overtreding getOvertreding(String jsonTekst){
+        Overtreding overtreding = new Overtreding();
+        try {
+            JSONObject overtredingJSON = new JSONObject(jsonTekst);
+            overtreding.set_id(overtredingJSON.getString("_id"));
+            overtreding.setBreedtegraad(overtredingJSON.getString("breedtegraad"));
+            overtreding.setLengtegraad(overtredingJSON.getString("lengtegraad"));
+
+            String datum = overtredingJSON.getString("datum");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            Date date = new Date();
+
+            try {
+                date = format.parse(datum);
+                System.out.println(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            overtreding.setDatum(date);
+            overtreding.setNummerplaat(overtredingJSON.getString("nummerplaat"));
+            overtreding.setNummerplaatUrl(overtredingJSON.getString("nummerplaatUrl"));
+            overtreding.setOpmerking(overtredingJSON.getString("opmerking"));
+            overtreding.setParkeerwachterId(overtredingJSON.getString("parkeerwachterId"));
+            overtreding.setGevolgTypeId(overtredingJSON.getString("gevolgTypeId"));
+
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        return overtreding;
+    }
+
 }
 
