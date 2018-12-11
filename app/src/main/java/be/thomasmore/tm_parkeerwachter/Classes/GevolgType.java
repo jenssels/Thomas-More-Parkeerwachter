@@ -11,6 +11,11 @@ public class GevolgType {
         this.naam = naam;
     }
 
+    public GevolgType() {
+        this._id = _id;
+        this.naam = naam;
+    }
+
     // Methoden
 
     // Getters & Setters
@@ -28,5 +33,11 @@ public class GevolgType {
 
     public void setNaam(String naam) {
         this.naam = naam;
+    }
+
+    // Overrides
+    @Override
+    public String toString() {
+        return this.naam;
     }
 }

@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -27,6 +28,42 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/overtreding_parkeerwachterLabel"
+            android:labelFor="@id/zoekParkeerwachter"
+            />
+        <Spinner
+            android:id="@+id/zoekParkeerwachter"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/overtreding_gevolgTypeLabel"
+            android:labelFor="@id/zoekGevolgType"
+            />
+        <Spinner
+            android:id="@+id/zoekGevolgType"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/overtreding_datumLabel"
+            android:labelFor="@id/zoekDatum"
+            />
+        <Spinner
+            android:id="@+id/zoekDatum"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
             />
         <Button
             android:id="@+id/zoekOvertredingen"

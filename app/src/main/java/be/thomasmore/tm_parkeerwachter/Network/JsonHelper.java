@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import be.thomasmore.tm_parkeerwachter.Classes.GevolgType;
 import be.thomasmore.tm_parkeerwachter.Classes.Overtreding;
 import be.thomasmore.tm_parkeerwachter.Classes.Parkeerwachter;
 
@@ -49,36 +50,61 @@ public class JsonHelper {
             for (int i = 0; i < jsonArrayOvertredingen.length(); i++) {
                 JSONObject jsonObjectOvertreding = jsonArrayOvertredingen.getJSONObject(i);
 
-                Overtreding overtreding = new Overtreding();
-                overtreding.set_id(jsonObjectOvertreding.getString("_id"));
-                overtreding.setBreedtegraad(jsonObjectOvertreding.getString("breedtegraad"));
-                overtreding.setLengtegraad(jsonObjectOvertreding.getString("lengtegraad"));
+                if (!jsonObjectOvertreding.getString("nummerplaat").equals("null") && !jsonObjectOvertreding.getString("datum").equals("null")){
+                    Log.d("sels",jsonObjectOvertreding.getString("nummerplaat"));
+                    Overtreding overtreding = new Overtreding();
+                    overtreding.set_id(jsonObjectOvertreding.getString("_id"));
+                    overtreding.setBreedtegraad(jsonObjectOvertreding.getString("breedtegraad"));
+                    overtreding.setLengtegraad(jsonObjectOvertreding.getString("lengtegraad"));
 
-                String datum = jsonObjectOvertreding.getString("datum");
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                Date date = new Date();
+                    String datum = jsonObjectOvertreding.getString("datum");
+                    Date date = new Date();
 
-                try {
-                    date = format.parse(datum);
-                    System.out.println(date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    try{
+                        long datumLong = Long.parseLong(datum);
+                        Log.d("sels",datumLong + "");
+                        date = new Date(datumLong * 1000);
+                    }
+                    catch (NumberFormatException e){
+                        e.printStackTrace();
+                    }
+
+                    overtreding.setDatum(date);
+
+                    overtreding.setNummerplaat(jsonObjectOvertreding.getString("nummerplaat"));
+                    overtreding.setNummerplaatUrl(jsonObjectOvertreding.getString("nummerplaatUrl"));
+                    overtreding.setOpmerking(jsonObjectOvertreding.getString("opmerking"));
+                    overtreding.setParkeerwachterId(jsonObjectOvertreding.getString("parkeerwachterId"));
+                    overtreding.setGevolgTypeId(jsonObjectOvertreding.getString("gevolgTypeId"));
+
+                    overtredingen.add(overtreding);
                 }
-
-                overtreding.setDatum(date);
-
-                overtreding.setNummerplaat(jsonObjectOvertreding.getString("nummerplaat"));
-                overtreding.setNummerplaatUrl(jsonObjectOvertreding.getString("nummerplaatUrl"));
-                overtreding.setOpmerking(jsonObjectOvertreding.getString("opmerking"));
-                overtreding.setParkeerwachterId(jsonObjectOvertreding.getString("parkeerwachterId"));
-                overtreding.setGevolgTypeId(jsonObjectOvertreding.getString("gevolgTypeId"));
-
-                overtredingen.add(overtreding);
             }
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
         return overtredingen;
+    }
+
+    public List<GevolgType> getGevolgTypes(String jsonTekst) {
+        List<GevolgType> gevolgTypes = new ArrayList<GevolgType>();
+
+        try {
+            JSONArray jsonArraygevolgType = new JSONArray(jsonTekst);
+            for (int i = 0; i < jsonArraygevolgType.length(); i++) {
+                JSONObject jsonObjectgevolgType = jsonArraygevolgType.getJSONObject(i);
+
+                GevolgType gevolgType = new GevolgType();
+                gevolgType.set_id(jsonObjectgevolgType.getString("_id"));
+                gevolgType.setNaam(jsonObjectgevolgType.getString("naam"));
+
+                gevolgTypes.add(gevolgType);
+            }
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        return gevolgTypes;
     }
 
 }

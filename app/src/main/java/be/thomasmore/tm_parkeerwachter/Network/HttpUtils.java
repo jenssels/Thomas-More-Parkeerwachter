@@ -17,7 +17,7 @@ public class HttpUtils {
         client.put(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void delere(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+    public static void delete(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.delete(getAbsoluteUrl(url), params, responseHandler);
     }
 
