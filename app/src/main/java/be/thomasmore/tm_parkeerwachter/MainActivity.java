@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }
         final Intent intent = new Intent(this, activity.getClass());
         startActivity(intent);
+        finish();
     }
 
     private void checkPermissions() {
