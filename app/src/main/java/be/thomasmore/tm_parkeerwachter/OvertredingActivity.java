@@ -1,10 +1,13 @@
 package be.thomasmore.tm_parkeerwachter;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -174,6 +177,13 @@ public class OvertredingActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.overtredingenLijst);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                openDetailPagina(i);
+            }
+        });
+
         listView.setAdapter(overtredingAdapter);
     }
 
@@ -238,6 +248,15 @@ public class OvertredingActivity extends AppCompatActivity {
             }
         }
         return found;
+    }
+
+    private void openDetailPagina(int index) {
+        Bundle bundle = new Bundle();
+        bundle.putString("id", this.overtredingen.get(index).get_id());
+        Intent intent = new Intent(this, OvertredingDetailActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
     }
 
 

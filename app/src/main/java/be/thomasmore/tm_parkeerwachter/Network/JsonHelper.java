@@ -42,6 +42,26 @@ public class JsonHelper {
         return parkeerwachters;
     }
 
+    public Parkeerwachter getParkeerwachter(String jsonTekst) {
+        Parkeerwachter parkeerwachter = new Parkeerwachter();
+
+        try {
+            JSONObject jsonObjectParkeerwachter = new JSONObject(jsonTekst);
+
+            parkeerwachter.setId(jsonObjectParkeerwachter.getString("_id"));
+            parkeerwachter.setUsername(jsonObjectParkeerwachter.getString("username"));
+            parkeerwachter.setPincode(jsonObjectParkeerwachter.getString("pincode"));
+            parkeerwachter.setVoornaam(jsonObjectParkeerwachter.getString("voornaam"));
+            parkeerwachter.setNaam(jsonObjectParkeerwachter.getString("naam"));
+
+
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        return parkeerwachter;
+    }
+
     public List<Overtreding> getOvertredingen(String jsonTekst){
         List<Overtreding> overtredingen = new ArrayList<Overtreding>();
 
@@ -107,6 +127,22 @@ public class JsonHelper {
         return gevolgTypes;
     }
 
+    public GevolgType getGevolgType(String jsonTekst) {
+        GevolgType gevolgType = new GevolgType();
+
+        try {
+            JSONObject jsonObjectgevolgType = new JSONObject(jsonTekst);
+
+                gevolgType.set_id(jsonObjectgevolgType.getString("_id"));
+                gevolgType.setNaam(jsonObjectgevolgType.getString("naam"));
+
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+        return gevolgType;
+    }
+
     public Overtreding getOvertreding(String jsonTekst){
         Overtreding overtreding = new Overtreding();
         try {
@@ -116,13 +152,14 @@ public class JsonHelper {
             overtreding.setLengtegraad(overtredingJSON.getString("lengtegraad"));
 
             String datum = overtredingJSON.getString("datum");
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             Date date = new Date();
 
-            try {
-                date = format.parse(datum);
-                System.out.println(date);
-            } catch (ParseException e) {
+            try{
+                long datumLong = Long.parseLong(datum);
+                Log.d("sels",datumLong + "");
+                date = new Date(datumLong * 1000);
+            }
+            catch (NumberFormatException e){
                 e.printStackTrace();
             }
 

@@ -5,35 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NieuweOvertredingActivity">
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/volledigeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+        <ImageView
+            android:id="@+id/nummerplaatView"
+            android:layout_width="wrap_content"
+            android:layout_height="225dp" />
+        <TextView
+            android:id="@+id/instructie"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/nummerplaatView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:id="@+id/nummerplaat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+            android:text="@string/nieuweOvertreding_informatie" />
+        <EditText
+            android:id="@+id/nummerplaat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/paginaknoppen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
             <Button
+                android:id="@+id/terugknop"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="wrap_content"
+                android:text="@string/nieuweOvertreding_terugknop"
+                android:onClick="annuleerOvertreding" />
+            <Button
+                android:id="@+id/bevestigknop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nieuweOvertreding_bevestigknop"
+                android:onClick="bevestigNummerplaat" />
         </LinearLayout>
-    </ScrollView>
-
-
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
