@@ -93,12 +93,12 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
         HttpUtils.post(url, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    JSONObject serverResp = new JSONObject(response.toString());
-                    leesOvertreding(response.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            try {
+                JSONObject serverResp = new JSONObject(response.toString());
+                leesOvertreding(response.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             }
         });
     }
@@ -191,7 +191,7 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
     public void bevestigNummerplaat(View v) {
         EditText nummerplaatView = (EditText) findViewById(R.id.nummerplaat);
         overtreding.setNummerplaat(nummerplaatView.getText().toString());
-        overtreding.setNummerplaatUrl("http://84.196.37.24:8080/pwPics/" + overtreding.get_id() + "_nummerplaat.jpg");
+        overtreding.setNummerplaatUrl("http://jenssels.ddns.net:8080/pwPics/" + overtreding.get_id() + "_nummerplaat.jpg");
         overtreding.setDatum(new Date());
         overtreding.setParkeerwachterId("5bfd3ff86fe8c14bb87872cc");
         // TODO: gpscoordinaten toevoegen

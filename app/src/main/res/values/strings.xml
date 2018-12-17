@@ -26,4 +26,6 @@
 
     <string name="detail_parkeerwachter_label">Parkeerwachter:</string>
     <string name="detail_opmerking_label">Opmerking van parkeerwachter:</string>
+    <!--NieuweOvertredingAfhandelingActivity strings-->
+    <string name="nieuweOvertredingAfhandeling_geenGeassocieerdeOvertredingen">Er zijn nog geen geregistreerde overtredingen voor deze nummerplaat</string>
 </resources>
