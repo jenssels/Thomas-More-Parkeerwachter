@@ -160,13 +160,6 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
         nummerplaatTekst.setText(overtreding.getNummerplaat());
     }
 
-    public void testUpload(View v) {
-        Ion.with(this)
-            .load("POST", "http://84.196.37.24:8080/uploadImage")
-            .setMultipartFile("testImage", new File("/storage/emulated/0/pictures/brazil_bus_wpo.jpg"))
-            .asJsonObject();
-    }
-
     public void annuleerOvertreding(View v) {
         verwijderFoto(lokaalNummerplaatPad);
         verwijderOvertreding();
@@ -207,6 +200,15 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
         requestParams.put("datum", overtreding.getDatum().getTime());
         requestParams.put("parkeerwachterId", overtreding.getParkeerwachterId());
         HttpUtils.put("overtredingen/" + overtreding.get_id(), requestParams, new JsonHttpResponseHandler());
+//        uploadNummerplaat(overtreding.get_id() + "_nummerplaat");
+    }
+
+    public void uploadNummerplaat(String naam) {
+        Ion.with(this)
+                .load("POST", "http://jenssels.ddns.net:8080/fotos/uploaden")
+                .setMultipartParameter("naam", naam)
+                .setMultipartFile("image", new File(lokaalNummerplaatPad))
+                .asJsonObject();
     }
 
     private void naarNieuweOvertredingAfhandeling() {

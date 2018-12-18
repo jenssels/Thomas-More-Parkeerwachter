@@ -11,10 +11,7 @@ public class GevolgType {
         this.naam = naam;
     }
 
-    public GevolgType() {
-        this._id = _id;
-        this.naam = naam;
-    }
+    public GevolgType() { }
 
     // Methoden
 

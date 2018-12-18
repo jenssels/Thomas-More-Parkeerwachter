@@ -1,10 +1,13 @@
 package be.thomasmore.tm_parkeerwachter;
 
+import android.content.Intent;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +55,8 @@ public class NieuweOvertredingAfhandelingActivity extends AppCompatActivity {
 
     private void leesOvertreding(String jsonString){
         overtreding = jsonHelper.getOvertreding(jsonString);
+        TextView nummerplaatView = (TextView) findViewById(R.id.nummerplaat);
+        nummerplaatView.setText(overtreding.getNummerplaat());
         haalGeassocieerdeOvertredingenOp();
     }
 
@@ -71,14 +77,16 @@ public class NieuweOvertredingAfhandelingActivity extends AppCompatActivity {
     private void leesGeassocieerdeOvertredingen(String jsonString){
         geassocieerdeOvertredingen = new ArrayList<Overtreding>();
         geassocieerdeOvertredingen = jsonHelper.getOvertredingen(jsonString);
+        geassocieerdeOvertredingen.remove(geassocieerdeOvertredingen.size() - 1);
         toonGeassocieerdeOvertredingen();
     }
 
     private void toonGeassocieerdeOvertredingen() {
-        if(geassocieerdeOvertredingen.size() <= 1) {
-            TextView geenVoorgaandeOvertredingenView = (TextView) findViewById(R.id.geenVoorgaandeOvertredingen);
-            geenVoorgaandeOvertredingenView.setVisibility(View.VISIBLE);
+        TextView voorgaandeOvertredingenView = (TextView) findViewById(R.id.voorgaandeOvertredingen);
+        if(geassocieerdeOvertredingen.size() <= 0) {
+            voorgaandeOvertredingenView.setText(R.string.nieuweOvertredingAfhandeling_geenGeassocieerdeOvertredingen);
         } else {
+            voorgaandeOvertredingenView.setText(R.string.nieuweOvertredingAfhandeling_geassocieerdeOvertredingen);
             ListView geassocieerdeOvertredingenView = (ListView) findViewById(R.id.geassocieerdeOvertredingen);
             ArrayAdapter<Overtreding> overtredingAdapter = new ArrayAdapter<Overtreding>(this, android.R.layout.simple_list_item_1, geassocieerdeOvertredingen);
             geassocieerdeOvertredingenView.setAdapter(overtredingAdapter);
@@ -107,13 +115,46 @@ public class NieuweOvertredingAfhandelingActivity extends AppCompatActivity {
     }
 
     private void toonGevolgTypes(){
-        Spinner gevolgTypesSpinner = findViewById(R.id.gevolgTypes);
-        GevolgType nullSelectie = new GevolgType();
-        nullSelectie.set_id("0");
-        nullSelectie.setNaam("Selecteer een gevolg");
+        Spinner gevolgTypesSpinner = (Spinner) findViewById(R.id.gevolgTypes);
+        GevolgType nullSelectie = new GevolgType("0", "Selecteer een gevolg");
         gevolgTypes.add(0,nullSelectie);
         ArrayAdapter<GevolgType> gevolgTypeAdapter = new ArrayAdapter<GevolgType>(this, android.R.layout.simple_list_item_1, gevolgTypes);
         gevolgTypesSpinner.setAdapter(gevolgTypeAdapter);
+    }
+
+    public void slaOvertredingOp(View v) {
+        Spinner gevolgTypesSpinner = (Spinner) findViewById(R.id.gevolgTypes);
+        EditText opmerkingView = (EditText) findViewById(R.id.opmerking);
+        overtreding.setGevolgTypeId(gevolgTypes.get((int)gevolgTypesSpinner.getSelectedItemId()).get_id());
+        overtreding.setOpmerking(opmerkingView.getText().toString());
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("id", overtreding.get_id());
+        requestParams.put("gevolgTypeId", overtreding.getGevolgTypeId());
+        requestParams.put("opmerking", overtreding.getOpmerking());
+        HttpUtils.put("overtredingen/" + overtreding.get_id(), requestParams, new JsonHttpResponseHandler());
+        final Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void annuleerOvertreding(View v) {
+        verwijderOvertreding();
+        final Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+//    private void verwijderFoto(String pad) {
+//        File teVerwijderen = new File(pad);
+//        if(teVerwijderen.exists()) {
+//            teVerwijderen.delete();
+//        }
+//        lokaleFotosEditor.remove(overtreding.get_id() + "_nummerplaat");
+//        lokaleFotosEditor.apply();
+//    }
+
+    private void verwijderOvertreding() {
+        HttpUtils.delete("overtredingen/" + overtreding.get_id(), null, new JsonHttpResponseHandler());
     }
 
     // Overrides

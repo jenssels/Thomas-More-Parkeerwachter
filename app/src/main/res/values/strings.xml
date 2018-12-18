@@ -35,5 +35,10 @@
 
     <!--NieuweOvertredingAfhandelingActivity strings-->
     <string name="nieuweOvertredingAfhandeling_geenGeassocieerdeOvertredingen">Er zijn nog geen geregistreerde overtredingen voor deze nummerplaat</string>
-
+    <string name="nieuweOvertredingAfhandeling_geassocieerdeOvertredingen">Geassocieerde overtredingen met deze nummerplaat:</string>
+    <string name="nieuweOvertredingAfhandeling_titel">Overtreding registreren</string>
+    <string name="nieuweOvertredingAfhandeling_gevolg">Bepaal welk gevolg aan de overtreding gekoppeld wordt:</string>
+    <string name="nieuweOvertredingAfhandeling_opmerking">Voorzie de overtreding van een opmerking/beschrijving:</string>
+    <string name="nieuweOvertredingAfhandeling_terugknop">Annuleer overtreding</string>
+    <string name="nieuweOvertredingAfhandeling_bevestigknop">Bevestig overtreding</string>
 </resources>
