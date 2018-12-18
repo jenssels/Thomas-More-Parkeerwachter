@@ -100,6 +100,7 @@ public class OvertredingActivity extends AppCompatActivity {
     private void maakZoekDatumArray(){
         zoekDatums = new ArrayList<String>();
         zoekDatums.add("Alles");
+        zoekDatums.add("Laatste 24 uur");
         zoekDatums.add("Laatste week");
         zoekDatums.add("Laatste maand");
         zoekDatums.add("Laatste 3 maanden");
@@ -117,6 +118,9 @@ public class OvertredingActivity extends AppCompatActivity {
             case "Laatste week":
                 cal.add(Calendar.WEEK_OF_YEAR, -1);
                 break;
+            case "Laatste 24 uur":
+                cal.add(Calendar.DAY_OF_MONTH,-1);
+                break;
             case "Laatste maand":
                 cal.add(Calendar.MONTH, -1);
                 break;
@@ -131,7 +135,8 @@ public class OvertredingActivity extends AppCompatActivity {
                 break;
         }
 
-        return cal.getTime().toString();
+        Log.d("sels", "Epoch zoek: " + cal.getTimeInMillis());
+        return String.valueOf(cal.getTimeInMillis());
     }
 
     private void toonZoekDatums(){
@@ -256,7 +261,6 @@ public class OvertredingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OvertredingDetailActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
-        finish();
     }
 
 

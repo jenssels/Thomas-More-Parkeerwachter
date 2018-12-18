@@ -33,11 +33,11 @@
 
         <Button
             android:id="@+id/openOvertreding"
-            android:text="Open test"
+            android:text="Open menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="openActivity"
-            android:tag="overtreding"/>
+            android:tag="menu"/>
 
         <Button
             android:id="@+id/openNieuweOvertreding"

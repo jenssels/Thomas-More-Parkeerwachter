@@ -71,7 +71,6 @@ public class JsonHelper {
                 JSONObject jsonObjectOvertreding = jsonArrayOvertredingen.getJSONObject(i);
 
                 if (!jsonObjectOvertreding.getString("nummerplaat").equals("null") && !jsonObjectOvertreding.getString("datum").equals("null")){
-                    Log.d("sels",jsonObjectOvertreding.getString("nummerplaat"));
                     Overtreding overtreding = new Overtreding();
                     overtreding.set_id(jsonObjectOvertreding.getString("_id"));
                     overtreding.setBreedtegraad(jsonObjectOvertreding.getString("breedtegraad"));
@@ -82,8 +81,7 @@ public class JsonHelper {
 
                     try{
                         long datumLong = Long.parseLong(datum);
-                        Log.d("sels",datumLong + "");
-                        date = new Date(datumLong * 1000);
+                        date = new Date(datumLong);
                     }
                     catch (NumberFormatException e){
                         e.printStackTrace();
@@ -96,6 +94,8 @@ public class JsonHelper {
                     overtreding.setOpmerking(jsonObjectOvertreding.getString("opmerking"));
                     overtreding.setParkeerwachterId(jsonObjectOvertreding.getString("parkeerwachterId"));
                     overtreding.setGevolgTypeId(jsonObjectOvertreding.getString("gevolgTypeId"));
+
+                    Log.d("sels", "Epoch van " + overtreding.getNummerplaat() + ": " + overtreding.getDatum().getTime());
 
                     overtredingen.add(overtreding);
                 }
@@ -157,7 +157,7 @@ public class JsonHelper {
             try{
                 long datumLong = Long.parseLong(datum);
                 Log.d("sels",datumLong + "");
-                date = new Date(datumLong * 1000);
+                date = new Date(datumLong);
             }
             catch (NumberFormatException e){
                 e.printStackTrace();

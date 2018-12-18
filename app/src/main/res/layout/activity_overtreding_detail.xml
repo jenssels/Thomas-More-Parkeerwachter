@@ -6,13 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".OvertredingDetailActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="10dp">
             <ImageView
                 android:id="@+id/detail_nummerplaatImage"
                 android:layout_width="wrap_content"
@@ -144,7 +142,16 @@
                     android:id="@+id/detail_opmerking"
                     android:textSize="15sp"/>
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_andereOvertredingen_header"
+                android:textSize="25sp"/>
+                <ListView
+                    android:id="@+id/andereOvertredingenLijst"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:dividerHeight="1dp" />
         </LinearLayout>
-    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

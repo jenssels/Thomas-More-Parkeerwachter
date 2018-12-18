@@ -45,8 +45,8 @@
             android:name=".NieuweOvertredingActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".OvertredingDetailActivity" />
-        <activity android:name=".NieuweOvertredingAfhandelingActivity"/>
-
+        <activity android:name=".NieuweOvertredingAfhandelingActivity" />
+        <activity android:name=".MenuActivity"></activity>
     </application>
 
 </manifest>

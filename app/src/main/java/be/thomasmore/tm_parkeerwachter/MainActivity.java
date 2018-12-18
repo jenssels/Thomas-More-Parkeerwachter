@@ -89,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
             case "overtreding":
                 activity = new OvertredingActivity();
                 break;
+            case "menu":
+                activity = new MenuActivity();
+                break;
         }
         final Intent intent = new Intent(this, activity.getClass());
         startActivity(intent);
