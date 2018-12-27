@@ -93,9 +93,7 @@ public class Overtreding {
         return parkeerwachterId;
     }
 
-    public void setParkeerwachterId(String parkeerwachterId) {
-        this.parkeerwachterId = parkeerwachterId;
-    }
+    public void setParkeerwachterId(String parkeerwachterId) { this.parkeerwachterId = parkeerwachterId; }
 
     public String getGevolgTypeId() {
         return gevolgTypeId;
@@ -103,5 +101,11 @@ public class Overtreding {
 
     public void setGevolgTypeId(String gevolgTypeId) {
         this.gevolgTypeId = gevolgTypeId;
+    }
+
+    // Overrides
+    @Override
+    public String toString() {
+        return datum + ": " + nummerplaat + " - Opmerking: " + opmerking + " - Gevolg: " + gevolgTypeId;
     }
 }

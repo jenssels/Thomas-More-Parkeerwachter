@@ -6,37 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".NieuweOvertredingAfhandelingActivity">
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="@string/nieuweOvertredingAfhandeling_titel" />
+
+        <TextView
+            android:id="@+id/nummerplaat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/voorgaandeOvertredingen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp" />
+
+        <ListView
+            android:id="@+id/geassocieerdeOvertredingen"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:dividerHeight="1dp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nieuweOvertredingAfhandeling_gevolg" />
+
+        <Spinner
+            android:id="@+id/gevolgTypes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nieuweOvertredingAfhandeling_opmerking"/>
+
+        <EditText
+            android:id="@+id/opmerking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/geenVoorgaandeOvertredingen"
+            <Button
+                android:id="@+id/terugknop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nieuweOvertredingAfhandeling_geenGeassocieerdeOvertredingen"
-                android:visibility="invisible" />
+                android:text="@string/nieuweOvertredingAfhandeling_terugknop"
+                android:onClick="annuleerOvertreding" />
 
-            <ListView
-                android:id="@+id/geassocieerdeOvertredingen"
+            <Button
+                android:id="@+id/bevestigknop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:dividerHeight="1dp"
-                android:visibility="invisible" />
-
-            <Spinner
-                android:id="@+id/gevolgTypes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawSelectorOnTop="true" />
+                android:text="@string/nieuweOvertredingAfhandeling_bevestigknop"
+                android:onClick="slaOvertredingOp" />
 
         </LinearLayout>
 
-    </ScrollView>
-
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
