@@ -2,6 +2,11 @@
     <!--App strings-->
     <string name="app_name">TM_Parkeerwachter</string>
     <string name="welkom">Welkom bij de TM Parkeerwachter app. Log in om te starten.</string>
+    <string name="main_parkeerwachter_label">Parkeerwachter:</string>
+    <string name="main_pincode_label">Pincode:</string>
+    <string name="main_login_error">Pincode fout</string>
+    <string name="main_login_button">Login</string>
+
     <!--OvertredingActivity strings-->
     <string name="overtreding_nummerplaatLabel">Nummerplaat:</string>
     <string name="overtreding_parkeerwachterLabel">Parkeerwachter:</string>
@@ -12,6 +17,7 @@
     <string name="nieuweOvertreding_terugknop">Annuleer overtreding</string>
     <string name="nieuweOvertreding_bevestigknop">Bevestig nummerplaat</string>
     <string name="nieuweOvertreding_informatie">Tik op de nummerplaat om ze aan te passen indien ze niet correct gelezen is.</string>
+
     <!--OvertredingDetailActivity strings-->
     <string name="detail_overtreding_header">Overtreding Gegevens</string>
     <string name="detail_gevolg_header">Gevolg Gegevens</string>
@@ -30,6 +36,7 @@
 
 
     <!--MenuActivity strings-->
+    <string name="menu_welkom_label">Welkom</string>
     <string name="menu_nieuweOvertreding">Nieuwe Overtreding</string>
     <string name="menu_lijstOvertreding">Overtreding Lijst</string>
 

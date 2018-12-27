@@ -14,6 +14,12 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="vertical">
+            <TextView
+                android:id="@+id/menu_parkeerwachter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="25sp"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
