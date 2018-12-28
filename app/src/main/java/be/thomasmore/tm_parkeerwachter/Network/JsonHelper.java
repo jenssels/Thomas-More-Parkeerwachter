@@ -33,6 +33,7 @@ public class JsonHelper {
                 parkeerwachter.setPincode(jsonObjectParkeerwachter.getString("pincode"));
                 parkeerwachter.setVoornaam(jsonObjectParkeerwachter.getString("voornaam"));
                 parkeerwachter.setNaam(jsonObjectParkeerwachter.getString("naam"));
+                parkeerwachter.setAdmin(jsonObjectParkeerwachter.getBoolean("isAdmin"));
                 parkeerwachters.add(parkeerwachter);
             }
         } catch (JSONException e) {
@@ -53,6 +54,7 @@ public class JsonHelper {
             parkeerwachter.setPincode(jsonObjectParkeerwachter.getString("pincode"));
             parkeerwachter.setVoornaam(jsonObjectParkeerwachter.getString("voornaam"));
             parkeerwachter.setNaam(jsonObjectParkeerwachter.getString("naam"));
+            parkeerwachter.setAdmin(jsonObjectParkeerwachter.getBoolean("isAdmin"));
 
 
         } catch (JSONException e) {

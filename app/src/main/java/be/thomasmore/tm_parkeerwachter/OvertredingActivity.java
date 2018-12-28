@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.ToggleButton;
 
+import com.google.android.gms.vision.text.Line;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -261,6 +265,16 @@ public class OvertredingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OvertredingDetailActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    public void toggleZoek(View view){
+        ToggleButton button = (ToggleButton) view;
+        LinearLayout layout = (LinearLayout) findViewById(R.id.zoekovertredingLayout);
+        if (button.isChecked()){
+            layout.setVisibility(View.VISIBLE);
+        } else {
+            layout.setVisibility(View.GONE);
+        }
     }
 
 

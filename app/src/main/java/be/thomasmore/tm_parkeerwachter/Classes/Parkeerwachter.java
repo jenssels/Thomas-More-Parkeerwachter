@@ -7,16 +7,18 @@ public class Parkeerwachter {
     private String pincode;
     private String voornaam;
     private String naam;
+    private Boolean isAdmin;
 
     // Constructoren
     public Parkeerwachter() {}
 
-    public Parkeerwachter(String id, String username, String pincode, String voornaam, String naam) {
+    public Parkeerwachter(String id, String username, String pincode, String voornaam, String naam, Boolean isAdmin) {
         this.id = id;
         this.username = username;
         this.pincode = pincode;
         this.voornaam = voornaam;
         this.naam = naam;
+        this.isAdmin = isAdmin;
     }
 
     // Methoden
@@ -60,6 +62,14 @@ public class Parkeerwachter {
 
     public void setNaam(String naam) {
         this.naam = naam;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 
     // Overrides

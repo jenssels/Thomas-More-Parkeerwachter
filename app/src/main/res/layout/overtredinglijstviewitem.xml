@@ -16,14 +16,14 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_toRightOf="@+id/nummerplaatUrl"
         android:layout_alignTop="@+id/nummerplaatUrl"
         android:paddingLeft="10dp">
         <TextView
             android:id="@+id/nummerplaat"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="30sp"
             android:textColor="#555555" />
