@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,7 +45,9 @@ public class OvertredingAdapter extends ArrayAdapter<Overtreding> {
         Date date = values.get(position).getDatum();
         datumString = dateFormat.format(date);
 
-        new DownloadImageTask(imageViewNummerplaat).execute(values.get(position).getNummerplaatUrl());
+        Picasso.get().load(values.get(position).getNummerplaatUrl()).resize(100, 100)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder).into(imageViewNummerplaat);
         textViewNummerplaat.setText(values.get(position).getNummerplaat().toUpperCase());
         textViewDatum.setText(datumString);
 

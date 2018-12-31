@@ -200,14 +200,14 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
         requestParams.put("datum", overtreding.getDatum().getTime());
         requestParams.put("parkeerwachterId", overtreding.getParkeerwachterId());
         HttpUtils.put("overtredingen/" + overtreding.get_id(), requestParams, new JsonHttpResponseHandler());
-//        uploadNummerplaat(overtreding.get_id() + "_nummerplaat");
+        uploadNummerplaat(overtreding.get_id() + "_nummerplaat");
     }
 
     public void uploadNummerplaat(String naam) {
-        Ion.with(this)
+        Ion.with(getApplicationContext())
                 .load("POST", "http://jenssels.ddns.net:8080/fotos/uploaden")
-                .setMultipartParameter("naam", naam)
                 .setMultipartFile("image", new File(lokaalNummerplaatPad))
+                .setMultipartParameter("imageName", naam)
                 .asJsonObject();
     }
 

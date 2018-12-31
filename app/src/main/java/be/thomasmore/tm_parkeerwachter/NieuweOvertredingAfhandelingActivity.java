@@ -132,14 +132,14 @@ public class NieuweOvertredingAfhandelingActivity extends AppCompatActivity {
         requestParams.put("gevolgTypeId", overtreding.getGevolgTypeId());
         requestParams.put("opmerking", overtreding.getOpmerking());
         HttpUtils.put("overtredingen/" + overtreding.get_id(), requestParams, new JsonHttpResponseHandler());
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
         finish();
     }
 
     public void annuleerOvertreding(View v) {
         verwijderOvertreding();
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
         finish();
     }

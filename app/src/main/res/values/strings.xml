@@ -28,20 +28,21 @@
     <string name="detail_andereOvertredingen_header">Andere Overtredingen</string>
 
     <string name="detail_nummerplaat_label">Nummerplaat:</string>
-    <string name="detail_datum_label">Datum:</string>
-    <string name="detail_breedtegraad_label">Breedtegraad:</string>
-    <string name="detail_lengtegraad_label">Lengtegraad:</string>
+    <string name="detail_datum_label">Datum: </string>
+    <string name="detail_breedtegraad_label">Breedtegraad: </string>
+    <string name="detail_lengtegraad_label">Lengtegraad: </string>
 
-    <string name="detail_gevolg_label">Gevolg van overtreding:</string>
+    <string name="detail_gevolg_label">Gevolg van overtreding: </string>
 
-    <string name="detail_parkeerwachter_label">Parkeerwachter:</string>
-    <string name="detail_opmerking_label">Opmerking van parkeerwachter:</string>
+    <string name="detail_parkeerwachter_label">Parkeerwachter: </string>
+    <string name="detail_opmerking_label">Opmerking van parkeerwachter: </string>
 
 
     <!--MenuActivity strings-->
     <string name="menu_welkom_label">Welkom</string>
     <string name="menu_nieuweOvertreding">Nieuwe Overtreding</string>
     <string name="menu_lijstOvertreding">Overtreding Lijst</string>
+    <string name="menu_logout">Uitloggen</string>
 
     <!--NieuweOvertredingAfhandelingActivity strings-->
     <string name="nieuweOvertredingAfhandeling_geenGeassocieerdeOvertredingen">Er zijn nog geen geregistreerde overtredingen voor deze nummerplaat</string>

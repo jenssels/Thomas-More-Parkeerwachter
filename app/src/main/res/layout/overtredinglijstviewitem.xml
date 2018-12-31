@@ -12,6 +12,7 @@
         android:paddingLeft="3dp"
         android:paddingTop="2dp"
         android:textSize="35sp"
+        android:src="@drawable/placeholder"
         android:textColor="#00aadd" />
     <LinearLayout
         android:orientation="vertical"

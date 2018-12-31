@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -168,7 +169,9 @@ public class OvertredingDetailActivity extends AppCompatActivity {
 
         detailBreedtegraad.setText(this.overtreding.getBreedtegraad());
         detailLengtegraad.setText(this.overtreding.getLengtegraad());
-        new DownloadImageTask(detailNummerplaatImage).execute(this.overtreding.getNummerplaatUrl());
+        Picasso.get().load(this.overtreding.getNummerplaatUrl()).resize(300, 300)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.placeholder).into(detailNummerplaatImage);
         detailOpmerking.setText(this.overtreding.getOpmerking());
 
     }

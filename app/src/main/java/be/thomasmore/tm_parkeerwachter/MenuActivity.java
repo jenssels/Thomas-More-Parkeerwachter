@@ -27,10 +27,19 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void logOut(View view){
+        Session session = new Session(getApplicationContext());
+        session.unSetParkeerwachterData();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void toonParkeerwachter(){
         Session session = new Session(getApplicationContext());
         String parkeerwachter = getString(R.string.menu_welkom_label) + " " + session.getNaam();
         TextView textView = (TextView) findViewById(R.id.menu_parkeerwachter);
         textView.setText(parkeerwachter);
     }
+
 }

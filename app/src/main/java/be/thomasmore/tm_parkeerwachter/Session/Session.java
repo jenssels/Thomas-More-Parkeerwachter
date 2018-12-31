@@ -16,6 +16,11 @@ public class Session {
         prefs.edit().putString("naam", naam).apply();
     }
 
+    public void unSetParkeerwachterData(){
+        prefs.edit().remove("id").apply();
+        prefs.edit().remove("naam").apply();
+    }
+
     public String getNaam() {
         return prefs.getString("naam","");
     }
