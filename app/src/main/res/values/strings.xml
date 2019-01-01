@@ -17,9 +17,12 @@
     <string name="overtreding_toggleButton_off">Uitbreiden</string>
 
     <!--NieuweOvertredingActivity strings-->
-    <string name="nieuweOvertreding_terugknop">Annuleer overtreding</string>
-    <string name="nieuweOvertreding_bevestigknop">Bevestig nummerplaat</string>
+    <string name="nieuweOvertreding_terugknop">Annuleer</string>
+    <string name="nieuweOvertreding_bevestigknop">Bevestig</string>
     <string name="nieuweOvertreding_informatie">Tik op de nummerplaat om ze aan te passen indien ze niet correct gelezen is.</string>
+    <string name="nieuweOvertreding_extrafotoknop">Neem extra foto</string>
+    <string name="nieuweOvertreding_fototerugknop">Terug</string>
+    <string name="nieuweOvertreding_verwijderfotoknop">Verwijder foto</string>
 
     <!--OvertredingDetailActivity strings-->
     <string name="detail_overtreding_header">Overtreding Gegevens</string>

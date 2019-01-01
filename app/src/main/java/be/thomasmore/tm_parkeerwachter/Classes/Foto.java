@@ -13,6 +13,8 @@ public class Foto {
         this.overtredingId = overtredingId;
     }
 
+    public Foto() {}
+
     // Methoden
 
     // Getters & Setters
