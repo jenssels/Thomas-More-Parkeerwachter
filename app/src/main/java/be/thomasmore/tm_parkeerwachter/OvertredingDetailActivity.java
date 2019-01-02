@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import be.thomasmore.tm_parkeerwachter.Adapters.OvertredingAdapter;
+import be.thomasmore.tm_parkeerwachter.Classes.Foto;
 import be.thomasmore.tm_parkeerwachter.Classes.GevolgType;
 import be.thomasmore.tm_parkeerwachter.Classes.Overtreding;
 import be.thomasmore.tm_parkeerwachter.Classes.Parkeerwachter;
@@ -39,6 +40,7 @@ public class OvertredingDetailActivity extends AppCompatActivity {
     List<Overtreding> overtredingen;
     GevolgType gevolgType;
     Parkeerwachter parkeerwachter;
+    List<Foto> fotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +116,21 @@ public class OvertredingDetailActivity extends AppCompatActivity {
         });
     }
 
+    private void getFotos(String url) {
+        HttpUtils.get(url, null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.d("sels", "---------------- this is response : " + response);
+                try {
+                    JSONObject serverResp = new JSONObject(response.toString());
+                    leesParkeerwachter(response.toString());
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
     private void leesOverteding(String jsonString){
         this.overtreding = jsonHelper.getOvertreding(jsonString);
         getGevolgType("gevolgTypes/" + this.overtreding.getGevolgTypeId());
@@ -131,6 +148,12 @@ public class OvertredingDetailActivity extends AppCompatActivity {
 
     private void leesParkeerwachter(String jsonString){
         this.parkeerwachter = jsonHelper.getParkeerwachter(jsonString);
+
+        toonParkeerwachter();
+    }
+
+    private void leesFotos(String jsonString){
+        this.fotos = jsonHelper;
 
         toonParkeerwachter();
     }

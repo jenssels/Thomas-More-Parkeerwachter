@@ -26,6 +26,7 @@
     <string name="detail_gevolg_header">Gevolg Gegevens</string>
     <string name="detail_parkeerwachter_header">Parkeerwachter Gegevens</string>
     <string name="detail_andereOvertredingen_header">Andere Overtredingen</string>
+    <string name="detail_andereFoto_header">Extra Foto\'s</string>
 
     <string name="detail_nummerplaat_label">Nummerplaat:</string>
     <string name="detail_datum_label">Datum: </string>
