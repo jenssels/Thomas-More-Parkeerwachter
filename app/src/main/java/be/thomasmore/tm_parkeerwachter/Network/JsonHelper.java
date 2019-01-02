@@ -1,6 +1,9 @@
 package be.thomasmore.tm_parkeerwachter.Network;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
+
+import com.koushikdutta.async.parser.JSONArrayParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,9 +12,13 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
+import be.thomasmore.tm_parkeerwachter.Classes.Foto;
 import be.thomasmore.tm_parkeerwachter.Classes.GevolgType;
 import be.thomasmore.tm_parkeerwachter.Classes.Overtreding;
 import be.thomasmore.tm_parkeerwachter.Classes.Parkeerwachter;
@@ -176,6 +183,26 @@ public class JsonHelper {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
         return overtreding;
+    }
+
+    public List<Foto> getFotos(String jsonTekst){
+        List<Foto> fotos = new ArrayList<Foto>();
+        try{
+            JSONArray jsonArray = new JSONArray(jsonTekst);
+            for (int i = 0; i < jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                Foto foto = new Foto();
+                foto.set_id(jsonObject.getString("_id"));
+                foto.setUrl(jsonObject.getString("url"));
+                foto.setOvertredingId(jsonObject.getString("overtredingId"));
+
+                fotos.add(foto);
+            }
+        } catch(JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        return fotos;
     }
 
 }

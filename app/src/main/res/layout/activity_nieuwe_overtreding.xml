@@ -4,43 +4,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NieuweOvertredingActivity">
-    <LinearLayout
+    tools:context=".NieuweOvertredingActivity" >
+    <RelativeLayout
+        android:id="@+id/fullscreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" >
+        <ImageView
+            android:id="@+id/fullscreenFotoView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+        <LinearLayout
+            android:id="@+id/fotoknoppen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp" >
+            <Button
+                android:id="@+id/fototerugknop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/nieuweOvertreding_fototerugknop"
+                android:onClick="sluitFoto"
+                android:layout_weight="1" />
+            <Button
+                android:id="@+id/fotoverwijderknop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/nieuweOvertreding_verwijderfotoknop"
+                android:onClick="verwijderFoto"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
         android:id="@+id/volledigeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="invisible" >
-        <ImageView
-            android:id="@+id/nummerplaatView"
-            android:layout_width="wrap_content"
-            android:layout_height="225dp" />
-        <TextView
-            android:id="@+id/instructie"
-            android:layout_width="wrap_content"
+        android:visibility="invisible"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" >
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/nieuweOvertreding_informatie" />
-        <EditText
-            android:id="@+id/nummerplaat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:orientation="vertical"
+            android:layout_marginTop="5dp" >
+            <ImageView
+                android:id="@+id/nummerplaatView"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp" />
+            <TextView
+                android:id="@+id/instructie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nieuweOvertreding_informatie" />
+            <EditText
+                android:id="@+id/nummerplaat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/extraFoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nieuweOvertreding_extrafotoknop"
+                android:onClick="extraFoto" />
+            <LinearLayout
+                android:id="@+id/extraFotos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"></LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/paginaknoppen"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp" >
             <Button
                 android:id="@+id/terugknop"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/nieuweOvertreding_terugknop"
-                android:onClick="annuleerOvertreding" />
+                android:onClick="annuleerOvertreding"
+                android:layout_weight="1" />
             <Button
                 android:id="@+id/bevestigknop"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/nieuweOvertreding_bevestigknop"
-                android:onClick="bevestigNummerplaat" />
+                android:onClick="bevestigNummerplaat"
+                android:layout_weight="1" />
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

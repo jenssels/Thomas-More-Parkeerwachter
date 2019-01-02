@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -119,11 +120,11 @@ public class OvertredingDetailActivity extends AppCompatActivity {
     private void getFotos(String url) {
         HttpUtils.get(url, null, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.d("sels", "---------------- this is response : " + response);
                 try {
-                    JSONObject serverResp = new JSONObject(response.toString());
-                    leesParkeerwachter(response.toString());
+                    JSONArray serverResp = new JSONArray(response.toString());
+                    leesFotos(response.toString());
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -136,6 +137,7 @@ public class OvertredingDetailActivity extends AppCompatActivity {
         getGevolgType("gevolgTypes/" + this.overtreding.getGevolgTypeId());
         getParkeerwachter("parkeerwachters/" + this.overtreding.getParkeerwachterId());
         getOvertredingen("overtredingen/?sort=datum&sortRichting=DESC&where=nummerplaat&whereValue=" + this.overtreding.getNummerplaat());
+        getFotos("fotos/?id=" + this.overtreding.get_id());
 
         toonOvertreding();
     }
@@ -153,9 +155,23 @@ public class OvertredingDetailActivity extends AppCompatActivity {
     }
 
     private void leesFotos(String jsonString){
-        this.fotos = jsonHelper;
+        this.fotos = jsonHelper.getFotos(jsonString);
 
-        toonParkeerwachter();
+        toonFotos();
+    }
+
+    private void toonFotos(){
+        LinearLayout layout = (LinearLayout) findViewById(R.id.foto_layout);
+
+        for (int i = 0; i < fotos.size(); i++){
+            ImageView imageView = new ImageView(getApplicationContext());
+            imageView.setId(i);
+            imageView.setPadding(2, 2, 2, 2);
+            Picasso.get().load(fotos.get(i).getUrl()).resize(300, 300)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder).into(imageView);
+            layout.addView(imageView);
+        }
     }
 
     private void leesOvertredingenAndFilter(String jsonString){

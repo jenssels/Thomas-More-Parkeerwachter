@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -17,9 +19,12 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
@@ -33,8 +38,11 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import be.thomasmore.tm_parkeerwachter.Classes.Foto;
 import be.thomasmore.tm_parkeerwachter.Classes.Overtreding;
 import be.thomasmore.tm_parkeerwachter.Network.HttpUtils;
 import be.thomasmore.tm_parkeerwachter.Network.JsonHelper;
@@ -46,7 +54,12 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Overtreding overtreding;
     LocationManager locatieManager;
+    private boolean isNummerplaat;
+    private String geopendeFoto;
+    private ImageView imageViewVanGeopendeFoto;
     private String lokaalNummerplaatPad;
+    private List<String> lokaleFotoPaden;
+    private Foto foto;
     SharedPreferences lokaleFotos;
     SharedPreferences.Editor lokaleFotosEditor;
 //    LocationListener locatieListener = new LocationListener() {
@@ -86,7 +99,8 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
 //            locatieManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locatieListener);
 //        } catch (SecurityException se) {}
         saveOvertreding("overtredingen");
-        fotografeerNummerplaat();
+        isNummerplaat = true;
+        neemFoto();
     }
 
     private void saveOvertreding(String url) {
@@ -108,7 +122,7 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
         overtreding = jsonHelper.getOvertreding(jsonString);
     }
 
-    private void fotografeerNummerplaat() {
+    private void neemFoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File nieuweFotoFile = null;
@@ -124,11 +138,24 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
     }
 
     private File maakFotoFile() throws IOException {
-        String fotoFileNaam = overtreding.get_id() + "_nummerplaat";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        String fotoFileNaam = "";
+        if(isNummerplaat) {
+            fotoFileNaam = overtreding.get_id() + "_nummerplaat";
+        } else {
+            fotoFileNaam = overtreding.get_id() + "_foto_" + lokaleFotos.getAll().size();
+            foto = new Foto();
+            foto.setOvertredingId(overtreding.get_id());
+            foto.setUrl("http://jenssels.ddns.net:8080/pwPics/" + fotoFileNaam + ".jpg");
+        }
         File image = File.createTempFile(fotoFileNaam, ".jpg", storageDir);
-        lokaalNummerplaatPad = image.getAbsolutePath();
-        lokaleFotosEditor.putString(fotoFileNaam, lokaalNummerplaatPad);
+        String lokaalFotoPad = image.getAbsolutePath();
+        if(isNummerplaat) {
+            lokaalNummerplaatPad = lokaalFotoPad;
+        } else {
+            lokaleFotoPaden.add(lokaalFotoPad);
+        }
+        lokaleFotosEditor.putString(fotoFileNaam, lokaalFotoPad);
         lokaleFotosEditor.apply();
         return image;
     }
@@ -161,19 +188,23 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
     }
 
     public void annuleerOvertreding(View v) {
-        verwijderFoto(lokaalNummerplaatPad);
+        verwijderFoto(lokaalNummerplaatPad, false);
         verwijderOvertreding();
         final Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void verwijderFoto(String pad) {
+    private void verwijderFoto(String pad, boolean isExtraFoto) {
         File teVerwijderen = new File(pad);
         if(teVerwijderen.exists()) {
             teVerwijderen.delete();
         }
-        lokaleFotosEditor.remove(overtreding.get_id() + "_nummerplaat");
+        if(isExtraFoto) {
+            lokaleFotosEditor.remove(overtreding.get_id() + "_foto_" + lokaleFotoPaden.indexOf(pad));
+        } else {
+            lokaleFotosEditor.remove(overtreding.get_id() + "_nummerplaat");
+        }
         lokaleFotosEditor.apply();
     }
 
@@ -190,6 +221,24 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
         // TODO: gpscoordinaten toevoegen
         uploadOvertreding();
         naarNieuweOvertredingAfhandeling();
+    }
+
+    public void extraFoto(View v) {
+        isNummerplaat = false;
+        neemFoto();
+    }
+
+    public void sluitFoto(View v) {
+        RelativeLayout fullscreenLayout = (RelativeLayout) findViewById(R.id.fullscreen);
+        RelativeLayout volledigeLayout = (RelativeLayout) findViewById(R.id.volledigeLayout);
+        fullscreenLayout.setVisibility(View.INVISIBLE);
+        volledigeLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void verwijderFoto(View v) {
+        sluitFoto(v);
+        ((ViewGroup) imageViewVanGeopendeFoto.getParent()).removeView(imageViewVanGeopendeFoto);
+        verwijderFoto(geopendeFoto, true);
     }
 
     private void uploadOvertreding() {
@@ -227,6 +276,7 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nieuwe_overtreding);
+        lokaleFotoPaden = new ArrayList<String>();
         lokaleFotos = this.getSharedPreferences("teUploadenFotos", Context.MODE_PRIVATE);
         lokaleFotosEditor = lokaleFotos.edit();
 //        locatieManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -236,12 +286,37 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
     // Override die respons van de camera app afhandelt
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LinearLayout volledigeLayout = (LinearLayout) findViewById(R.id.volledigeLayout);
+        final RelativeLayout volledigeLayout = (RelativeLayout) findViewById(R.id.volledigeLayout);
         ImageView nummerplaatView = (ImageView) findViewById(R.id.nummerplaatView);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             volledigeLayout.setVisibility(View.VISIBLE);
-            nummerplaatView.setImageBitmap(BitmapFactory.decodeFile(lokaalNummerplaatPad));
-            ontcijferNummerplaat();
+            if(isNummerplaat) {
+                nummerplaatView.setImageBitmap(BitmapFactory.decodeFile(lokaalNummerplaatPad));
+                ontcijferNummerplaat();
+            } else {
+                final String fotopad = lokaleFotoPaden.get(lokaleFotoPaden.size() - 1);
+                final Bitmap foto = BitmapFactory.decodeFile(fotopad);
+                LinearLayout extraFotosLayout = (LinearLayout) findViewById(R.id.extraFotos);
+                final ImageView fotoView = new ImageView(NieuweOvertredingActivity.this);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(200, 200);
+                layoutParams.setMargins(10,10,10,10);
+                fotoView.setLayoutParams(layoutParams);
+                fotoView.setImageBitmap(foto);
+                fotoView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        geopendeFoto = fotopad;
+                        imageViewVanGeopendeFoto = fotoView;
+                        volledigeLayout.setVisibility(View.INVISIBLE);
+                        RelativeLayout fullscreenLayout = (RelativeLayout) findViewById(R.id.fullscreen);
+                        ImageView fullscreenFoto = (ImageView) findViewById(R.id.fullscreenFotoView);
+                        fullscreenFoto.setImageBitmap(foto);
+                        fullscreenFoto.setRotation(90);
+                        fullscreenLayout.setVisibility(View.VISIBLE);
+                    }
+                });
+                extraFotosLayout.addView(fotoView);
+            }
         }
     }
 }
