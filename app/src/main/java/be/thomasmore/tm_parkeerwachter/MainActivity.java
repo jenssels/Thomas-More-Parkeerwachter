@@ -53,18 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Methoden
 
-    private void toonDialoog() {
-        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-        builder.setMessage("Boodschap")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        Toast.makeText(getBaseContext(),"Ok",Toast.LENGTH_SHORT).show();
-                    }
-                });
-        android.support.v7.app.AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
     private void getParkeerwachters(String url){
         HttpUtils.get(url, null, new JsonHttpResponseHandler() {
             @Override

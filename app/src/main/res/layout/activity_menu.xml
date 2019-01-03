@@ -43,6 +43,39 @@
                 android:onClick="logOut"
                 android:layout_gravity="center"
                 />
+            <Button
+                android:id="@+id/uploadFotos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_upload"
+                android:onClick="uploadFotos"
+                android:layout_gravity="center"
+                android:layout_marginTop="150dp"
+                android:visibility="invisible"
+                />
+            <LinearLayout
+                android:id="@+id/progressLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="invisible" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/menu_uploading" />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/fotoCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/progressCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
 
     </RelativeLayout>

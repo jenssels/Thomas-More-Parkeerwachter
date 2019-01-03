@@ -23,6 +23,9 @@
     <string name="nieuweOvertreding_extrafotoknop">Neem extra foto</string>
     <string name="nieuweOvertreding_fototerugknop">Terug</string>
     <string name="nieuweOvertreding_verwijderfotoknop">Verwijder foto</string>
+    <string name="nieuweOvertreding_wachtOpLocatie">Coördinaten worden opgehaald, even geduld aub</string>
+    <string name="nieuweOvertreding_gpsInstructie">Zet locatieservices aan indien deze uitgeschakeld zijn</string>
+    <string name="nieuweOvertreding_extraFotoInstructie">Tik een thumbnail aan voor een foto    uit te breiden</string>
 
     <!--OvertredingDetailActivity strings-->
     <string name="detail_overtreding_header">Overtreding Gegevens</string>
@@ -41,12 +44,13 @@
     <string name="detail_parkeerwachter_label">Parkeerwachter: </string>
     <string name="detail_opmerking_label">Opmerking van parkeerwachter: </string>
 
-
     <!--MenuActivity strings-->
     <string name="menu_welkom_label">Welkom</string>
     <string name="menu_nieuweOvertreding">Nieuwe Overtreding</string>
     <string name="menu_lijstOvertreding">Overtreding Lijst</string>
     <string name="menu_logout">Uitloggen</string>
+    <string name="menu_upload">Upload Fotos</string>
+    <string name="menu_uploading">Even geduld aub</string>
 
     <!--NieuweOvertredingAfhandelingActivity strings-->
     <string name="nieuweOvertredingAfhandeling_geenGeassocieerdeOvertredingen">Er zijn nog geen geregistreerde overtredingen voor deze nummerplaat</string>
@@ -54,6 +58,6 @@
     <string name="nieuweOvertredingAfhandeling_titel">Overtreding registreren</string>
     <string name="nieuweOvertredingAfhandeling_gevolg">Bepaal welk gevolg aan de overtreding gekoppeld wordt:</string>
     <string name="nieuweOvertredingAfhandeling_opmerking">Voorzie de overtreding van een opmerking/beschrijving:</string>
-    <string name="nieuweOvertredingAfhandeling_terugknop">Annuleer overtreding</string>
-    <string name="nieuweOvertredingAfhandeling_bevestigknop">Bevestig overtreding</string>
+    <string name="nieuweOvertredingAfhandeling_terugknop">Annuleer</string>
+    <string name="nieuweOvertredingAfhandeling_bevestigknop">Bevestig</string>
 </resources>
