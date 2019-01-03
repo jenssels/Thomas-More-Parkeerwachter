@@ -259,6 +259,11 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
         if(file.exists()) {
             file.delete();
         }
+        for(int i = 0; i < lokaleFotos.size(); i++) {
+            if(lokaleFotos.get(i).getLokaleUrl().equals(geopendeFoto)) {
+                lokaleFotos.remove(i);
+            }
+        }
     }
 
     private void uploadOvertreding() {
@@ -268,6 +273,8 @@ public class NieuweOvertredingActivity extends AppCompatActivity {
         requestParams.put("nummerplaatUrl", overtreding.getNummerplaatUrl());
         requestParams.put("datum", overtreding.getDatum().getTime());
         requestParams.put("parkeerwachterId", overtreding.getParkeerwachterId());
+        requestParams.put("lengtegraad", overtreding.getLengtegraad());
+        requestParams.put("breedtegraad", overtreding.getBreedtegraad());
         HttpUtils.put("overtredingen/" + overtreding.get_id(), requestParams, new JsonHttpResponseHandler());
     }
 

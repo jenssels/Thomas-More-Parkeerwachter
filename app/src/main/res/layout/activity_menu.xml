@@ -55,26 +55,30 @@
                 />
             <LinearLayout
                 android:id="@+id/progressLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="invisible" >
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/menu_uploading" />
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
                 <TextView
                     android:id="@+id/fotoCount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
                 <TextView
                     android:id="@+id/progressCount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
             </LinearLayout>
         </LinearLayout>
 

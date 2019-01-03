@@ -51,12 +51,12 @@ public class NieuweOvertredingAfhandelingActivity extends AppCompatActivity {
         HttpUtils.get(url, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    JSONObject serverResp = new JSONObject(response.toString());
-                    leesOvertreding(response.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            try {
+                JSONObject serverResp = new JSONObject(response.toString());
+                leesOvertreding(response.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             }
         });
     }
@@ -72,12 +72,12 @@ public class NieuweOvertredingAfhandelingActivity extends AppCompatActivity {
         HttpUtils.get("overtredingen?where=nummerplaat&whereValue=" + overtreding.getNummerplaat(), null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                try {
-                    JSONArray serverResp = new JSONArray(response.toString());
-                    leesGeassocieerdeOvertredingen(response.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            try {
+                JSONArray serverResp = new JSONArray(response.toString());
+                leesGeassocieerdeOvertredingen(response.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             }
         });
     }
@@ -85,7 +85,9 @@ public class NieuweOvertredingAfhandelingActivity extends AppCompatActivity {
     private void leesGeassocieerdeOvertredingen(String jsonString){
         geassocieerdeOvertredingen = new ArrayList<Overtreding>();
         geassocieerdeOvertredingen = jsonHelper.getOvertredingen(jsonString);
-        geassocieerdeOvertredingen.remove(geassocieerdeOvertredingen.size() - 1);
+        if (geassocieerdeOvertredingen.size() > 0) {
+            geassocieerdeOvertredingen.remove(geassocieerdeOvertredingen.size() - 1);
+        }
         toonGeassocieerdeOvertredingen();
     }
 
@@ -96,7 +98,7 @@ public class NieuweOvertredingAfhandelingActivity extends AppCompatActivity {
         } else {
             voorgaandeOvertredingenView.setText(R.string.nieuweOvertredingAfhandeling_geassocieerdeOvertredingen);
             ListView geassocieerdeOvertredingenView = (ListView) findViewById(R.id.geassocieerdeOvertredingen);
-            BevestigingOvertredingAdapter overtredingAdapter = new BevestigingOvertredingAdapter(this, geassocieerdeOvertredingen);
+            BevestigingOvertredingAdapter overtredingAdapter = new BevestigingOvertredingAdapter(this, geassocieerdeOvertredingen, gevolgTypes);
             geassocieerdeOvertredingenView.setAdapter(overtredingAdapter);
             geassocieerdeOvertredingenView.setVisibility(View.VISIBLE);
         }
@@ -189,12 +191,12 @@ public class NieuweOvertredingAfhandelingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nieuwe_overtreding_afhandeling);
+        haalGevolgTypesOp("Gevolgtypes");
         jsonHelper = new JsonHelper();
         Bundle bundel = getIntent().getExtras();
         if(bundel != null) {
             String overtredingId = bundel.getString("overtredingId");
             haalOvertredingOp("overtredingen/" + overtredingId);
         }
-        haalGevolgTypesOp("Gevolgtypes");
     }
 }

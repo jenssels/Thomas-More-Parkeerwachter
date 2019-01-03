@@ -25,7 +25,7 @@
     <string name="nieuweOvertreding_verwijderfotoknop">Verwijder foto</string>
     <string name="nieuweOvertreding_wachtOpLocatie">Coördinaten worden opgehaald, even geduld aub</string>
     <string name="nieuweOvertreding_gpsInstructie">Zet locatieservices aan indien deze uitgeschakeld zijn</string>
-    <string name="nieuweOvertreding_extraFotoInstructie">Tik een thumbnail aan voor een foto    uit te breiden</string>
+    <string name="nieuweOvertreding_extraFotoInstructie">Tik een thumbnail aan voor een foto uit te breiden</string>
 
     <!--OvertredingDetailActivity strings-->
     <string name="detail_overtreding_header">Overtreding Gegevens</string>

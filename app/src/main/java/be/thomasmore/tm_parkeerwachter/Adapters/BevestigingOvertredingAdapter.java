@@ -23,6 +23,7 @@ import be.thomasmore.tm_parkeerwachter.Classes.Overtreding;
 import be.thomasmore.tm_parkeerwachter.Network.DownloadImageTask;
 import be.thomasmore.tm_parkeerwachter.Network.HttpUtils;
 import be.thomasmore.tm_parkeerwachter.Network.JsonHelper;
+import be.thomasmore.tm_parkeerwachter.NieuweOvertredingActivity;
 import be.thomasmore.tm_parkeerwachter.R;
 import cz.msebera.android.httpclient.Header;
 
@@ -30,17 +31,13 @@ public class BevestigingOvertredingAdapter extends ArrayAdapter<Overtreding> {
 
     private final Context context;
     private final List<Overtreding> values;
-    private GevolgType gevolgType;
+    private List<GevolgType> gevolgTypes;
 
-    public BevestigingOvertredingAdapter(Context context, List<Overtreding> values) {
+    public BevestigingOvertredingAdapter(Context context, List<Overtreding> values, List<GevolgType> gevolgTypes) {
         super(context, R.layout.overtredinglijstviewitem, values);
         this.context = context;
         this.values = values;
-    }
-
-    private void leesGevolgType(String jsonString) {
-        JsonHelper jsonHelper = new JsonHelper();
-        gevolgType = jsonHelper.getGevolgType(jsonString);
+        this.gevolgTypes = gevolgTypes;
     }
 
     @Override
@@ -59,18 +56,12 @@ public class BevestigingOvertredingAdapter extends ArrayAdapter<Overtreding> {
         Date date = values.get(position).getDatum();
         datumString = dateFormat.format(date);
 
-        HttpUtils.get("gevolgtypes/" + values.get(position).getGevolgTypeId(), null, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    JSONObject serverResp = new JSONObject(response.toString());
-                    leesGevolgType(response.toString());
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+        GevolgType gevolgType = new GevolgType();
+        for(int i = 0; i < gevolgTypes.size(); i++) {
+            if(gevolgTypes.get(i).get_id().equals(values.get(position).getGevolgTypeId())) {
+                gevolgType = gevolgTypes.get(i);
             }
-        });
+        }
 
         textViewDatum.setText(datumString);
         textViewNummerplaat.setText(values.get(position).getNummerplaat().toUpperCase());
